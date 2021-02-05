@@ -7,8 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import pojo.Role;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.sql.RowSet;
+import java.sql.*;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -97,5 +97,35 @@ public class JdbcTemplateTest {
         String note = "测试jdbcTemplate更新";
         int row = jdbcTemplate.update(sql,note,1);
         System.out.println("受影响行数："+row);
+    }
+
+    /**
+     * 测试执行多条sql  这里有俩种方法，分别使用ConnectionCallBack，StatmentCallBack
+     * 就是转换为最原始方式执行，但是无需关注数据库资源的开关使用
+     * @param jdbcTemplate
+     */
+    public static void testExecuteMoreSql(JdbcTemplate jdbcTemplate){
+        Role role = null;
+        role = jdbcTemplate.execute((Connection conn)->{
+            String sql = "select * from role where role_id=1";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            Role result = new Role();
+            if(rs.next()){
+                result.setRoleId(rs.getInt("role_id"));
+            }
+            return result;
+        });
+
+        role = jdbcTemplate.execute((Statement statement)->{
+            String sql = "select * from role where role_id=1";
+            ResultSet rs = statement.executeQuery(sql);
+            Role result = new Role();
+            if(rs.next()){
+                result.setRoleId(rs.getInt("role_id"));
+            }
+            return result;
+        });
+
     }
 }
