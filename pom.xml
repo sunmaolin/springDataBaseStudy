@@ -20,6 +20,18 @@
             <artifactId>spring-context</artifactId>
             <version>5.3.3</version>
         </dependency>
+        <!--spring整合mybatis-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+        <!--mybatis所需jar-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.6</version>
+        </dependency>
         <!--spring封装数据库操作jar-->
         <dependency>
             <groupId>org.springframework</groupId>
