@@ -56,4 +56,16 @@
         <property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
     </bean>
 
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--多个包扫描可用逗号分开-->
+        <property name="basePackage" value="mapper"/>
+        <!--同理，SqlSessionTemplate会覆盖SqlSessionFactory-->
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--只扫描注解了该注解的接口-->
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
+        <!--除了扫描注解的接口，也可以扫描实现接口的类，XXXX表示实现或继承了哪个接口-->
+        <!--<property name="markerInterface" value="XXXX"/>-->
+    </bean>
+
 </beans>
