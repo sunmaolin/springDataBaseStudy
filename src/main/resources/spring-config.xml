@@ -37,13 +37,23 @@
     <!--提供了SqlSessionFactoryBean，因为在mybatis中SqlSessionFactory是产生SqlSession的关键-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--下面配置了mapperFactoryBean，这里就不用配置了-->
+<!--        <property name="configLocation" value="classpath:mybatis-config.xml"/>-->
     </bean>
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
         <!--mybatis执行器-->
 <!--        <constructor-arg name="executorType" value="BATCH"/>-->
+    </bean>
+
+    <!--单独扫描一个Mapper接口，若是多个mapper接口，单独配置很麻烦-->
+    <bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <!--设置mapper接口-->
+        <property name="mapperInterface" value="mapper.RoleMapper"/>
+        <!--同时注入SqlSessionFactory与SqlSessionTemplate只会启用SqlSessionTemplate-->
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
     </bean>
 
 </beans>
