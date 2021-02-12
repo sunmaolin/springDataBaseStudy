@@ -18,7 +18,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"mapper","pojo"})
 //启动事务管理器
 @EnableTransactionManagement
-public class transactionConfig implements TransactionManagementConfigurer {
+public class TransactionConfig implements TransactionManagementConfigurer {
     //数据源
     private DataSource dataSource;
 
